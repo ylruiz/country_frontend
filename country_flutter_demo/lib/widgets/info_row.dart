@@ -18,7 +18,7 @@ class InfoRow extends StatelessWidget {
 			padding: const EdgeInsets.symmetric(vertical: 6),
 			child: Row(
 				children: [
-					Icon(icon, size: 24, color: Colors.blueAccent),
+					Icon(icon, size: 24, color: Color.fromARGB(255, 146, 178, 155)),
 					const SizedBox(width: 12),
 					Text(
 						"$title: ",

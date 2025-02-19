@@ -16,6 +16,7 @@ class CountryCard extends StatelessWidget {
       elevation: 3,
       margin: EdgeInsets.only(bottom: isTablet ? 16 : 12),
       child: ListTile(
+        contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         title: Column(
           crossAxisAlignment:
               isWeb ? CrossAxisAlignment.center : CrossAxisAlignment.start,
@@ -35,20 +36,18 @@ class CountryCard extends StatelessWidget {
               ),
             Text(
               country.name,
-              style: TextStyle(
-                fontSize: isTablet && !isWeb ? 22 : 18,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontSize: isTablet && !isWeb ? 22 : 18),
             ),
           ],
         ),
         leading:
             !isWeb && country.flagUrl != null && country.flagUrl!.isNotEmpty
-                ? CircleAvatar(
-                    child: Image.network(
-                    country.flagUrl!,
-                    width: 18,
-                  ))
+                ? SizedBox(
+                    width: 34,
+                    child: CircleAvatar(
+                      backgroundImage: NetworkImage(country.flagUrl!),
+                    ),
+                  )
                 : null,
         onTap: () {
           Navigator.push(
