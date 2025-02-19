@@ -1,5 +1,5 @@
-import 'package:country_flutter/country_detail_screen.dart';
-import 'package:country_flutter/country_model.dart';
+import 'package:country_flutter/screens/country_detail_screen.dart';
+import 'package:country_flutter/models/country_model.dart';
 import 'package:flutter/material.dart';
 
 class CountryCard extends StatelessWidget {

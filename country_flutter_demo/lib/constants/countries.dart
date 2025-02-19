@@ -1,4 +1,4 @@
-import 'package:country_flutter/country_model.dart';
+import 'package:country_flutter/models/country_model.dart';
 
 final List<Map<String, dynamic>> countriesMap = [
   {

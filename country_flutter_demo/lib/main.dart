@@ -1,4 +1,4 @@
-import 'package:country_flutter/countries_screen.dart';
+import 'package:country_flutter/screens/countries_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
