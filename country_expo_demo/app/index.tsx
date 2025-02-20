@@ -2,10 +2,21 @@ import { View, Text, StyleSheet, Platform, Dimensions } from "react-native";
 
 import CountriesGrid from "@/components/countries_grid";
 import CountriesList from "@/components/countries_list";
+import { useEffect, useState } from "react";
 
 export default function CountriesScreen() {
-  const { width } = Dimensions.get("screen");
-  const isWeb = width >= 1024;
+  const [windowSize, setWindowSize] = useState(Dimensions.get("window"));
+  const isWeb = windowSize.width >= 1024;
+
+  useEffect(() => {
+    const updateSize = () => {
+      setWindowSize(Dimensions.get("window"));
+    };
+
+    const subscription = Dimensions.addEventListener("change", updateSize);
+
+    return () => subscription.remove(); // Cleanup
+  }, []);
 
   return (
     <View style={styles.container}>

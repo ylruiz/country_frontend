@@ -4,9 +4,6 @@ import CountryCard from "./country_card";
 import countries from "@/constants/countries";
 
 export default function CountriesList() {
-  const { width } = Dimensions.get("screen");
-  const isTablet = width >= 600;
-
   return (
     <FlatList
       data={countries}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   TouchableOpacity,
   StyleSheet,
@@ -13,12 +13,25 @@ import Country from "@/models/country_model";
 
 interface CountryCardProps {
   country: Country;
+  cardWidth?: number;
 }
 
-export default function CountryCard({ country }: CountryCardProps) {
-  const { width } = Dimensions.get("screen");
-  const isTablet = width >= 600;
-  const isWeb = width >= 1024;
+export default function CountryCard({ country, cardWidth }: CountryCardProps) {
+  const [windowSize, setWindowSize] = useState(Dimensions.get("window"));
+
+  const calculatedWidth = cardWidth || windowSize.width * 0.9;
+  const isTablet = windowSize.width >= 600;
+  const isWeb = windowSize.width >= 1024;
+
+  useEffect(() => {
+    const updateSize = () => {
+      setWindowSize(Dimensions.get("window"));
+    };
+
+    const subscription = Dimensions.addEventListener("change", updateSize);
+
+    return () => subscription.remove(); // Cleanup
+  }, []);
 
   const handleOnPress = () => {
     router.push({
@@ -28,15 +41,22 @@ export default function CountryCard({ country }: CountryCardProps) {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { width: cardWidth }]}>
       <TouchableOpacity onPress={handleOnPress} style={styles.card}>
         <View style={[styles.content, isWeb && styles.contentWeb]}>
           {/* Flag Image (Web) */}
           {isWeb && (
             <Image
               source={{ uri: country.flagUrl }}
-              style={[styles.flag, { width: "100%", height: 100 }]}
-              resizeMode="cover"
+              style={[
+                styles.flag,
+                {
+                  width: calculatedWidth - 16,
+                  height: "auto",
+                  aspectRatio: 3 / 2,
+                },
+              ]} // Dynamic width and aspect ratio
+              resizeMode="contain" // Ensures the entire image is visible
             />
           )}
           {/* Flag Avatar (Mobile/Tablet) */}
@@ -44,7 +64,7 @@ export default function CountryCard({ country }: CountryCardProps) {
             <Avatar
               rounded
               source={{ uri: country.flagUrl }}
-              size="small"
+              size="medium" // Increase size for better visibility
               containerStyle={styles.avatar}
             />
           )}
